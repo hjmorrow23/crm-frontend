@@ -1,4 +1,3 @@
-import store from './store'
 import { createCookie, getCookie, deleteCookie } from './helpers'
 
 const apiBase = process.env.REACT_APP_API_URL;
@@ -17,7 +16,7 @@ class API {
         this.defaultHeaders = defaultHeaders;
     }
 
-    setAuthHeader(accessToken) {
+    setAuthHeader(accessToken: string) {
         if(getCookie("accessToken")) {
             deleteCookie("accessToken");
         }
@@ -42,7 +41,7 @@ class API {
         this.defaultHeaders.delete("x-access-token");
         deleteCookie("accessToken");
         localStorage.clear();
-        window.location.reload(false);
+        window.location.reload();
     }
 }
 

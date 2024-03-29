@@ -1,9 +1,9 @@
-export const createCookie = (name, value, days) => {
+export const createCookie = (name: string, value: any, days: any) => {
     var expires;
     if (days) {
-        var date = new Date();
+        var date: Date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toGMTString();
+        expires = "; expires=" + date.toString();
     }
     else {
         expires = "";
@@ -11,7 +11,7 @@ export const createCookie = (name, value, days) => {
     document.cookie = name + "=" + value + expires + "; path=/";
 }
 
-export const getCookie = (c_name) => {
+export const getCookie = (c_name: string) => {
     if (document.cookie.length > 0) {
         let c_start = document.cookie.indexOf(c_name + "=");
         if (c_start != -1) {
@@ -26,6 +26,6 @@ export const getCookie = (c_name) => {
     return "";
 }
 
-export const deleteCookie = (name) => {
+export const deleteCookie = (name: string) => {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }

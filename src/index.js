@@ -8,13 +8,21 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { persistor, store } from "./store"
 import { PersistGate } from 'redux-persist/integration/react';
+import { createTheme, MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
+const theme = createTheme({
+  fontFamily: 'Open Sans, sans-serif',
+  primaryColor: 'cyan',
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <MantineProvider theme={theme}>
+          <App />
+        </MantineProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>

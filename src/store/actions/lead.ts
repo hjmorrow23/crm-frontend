@@ -1,39 +1,40 @@
-import { recipeActions } from "../slices/recipe";
+import { leadActions } from "../slices/lead";
 import api from '../../api'
+import { Lead } from "../../components/leads/types";
 
-const { getRecipesSuccess, getRecipeSuccess, updateRecipeSuccess } = recipeActions;
+const { getLeadsSuccess, getLeadSuccess, updateLeadSuccess } = leadActions;
 const apiBase = process.env.REACT_APP_API_URL;
 
-export const getRecipes = () => async dispatch => {
+export const getLeads: () => (dispatch: any) => Promise<void> = () => async dispatch => {
     try {
         let myHeaders = api.getHeaders();
         let requestOptions = {
             method: 'GET',
             headers: myHeaders,
-            redirect: 'follow'
+            redirect: 'follow' as RequestRedirect
         };
-        const res = await fetch(`${apiBase}/recipes`, requestOptions);
+        const res = await fetch(`${apiBase}/leads`, requestOptions);
         const result = await res.text();
         const data = JSON.parse(result);
-        dispatch(getRecipesSuccess(data));
+        dispatch(getLeadsSuccess(data));
     } catch(err) {
         console.error(err);
     }
 }
 
-export const getRecipe = (id) => async dispatch => {
+export const getLead: (id: string | undefined) => (dispatch: any) => Promise<void> = (id) => async dispatch => {
     try {
         let myHeaders = api.getHeaders();
         let requestOptions = {
             method: 'GET',
             headers: myHeaders,
-            redirect: 'follow'
+            redirect: 'follow' as RequestRedirect
         };
-        const res = await fetch(`${apiBase}/recipes/${id}`, requestOptions);
+        const res = await fetch(`${apiBase}/leads/${id}`, requestOptions);
         const result = await res.text();
         const data = JSON.parse(result);
         if(!data.message) {
-            dispatch(getRecipeSuccess(data));
+            dispatch(getLeadSuccess(data));
         }
         
     } catch(err) {
@@ -41,52 +42,53 @@ export const getRecipe = (id) => async dispatch => {
     }
 }
 
-export const updateRecipe = (id, recipe) => async dispatch => {
+export const updateLead = (id: string | undefined, lead: Lead) => async (dispatch: any) => {
     try {
         let myHeaders = api.getHeaders();
         let requestOptions = {
             method: 'PUT',
-            body: JSON.stringify(recipe),
+            body: JSON.stringify(lead),
             headers: myHeaders,
-            redirect: 'follow'
+            redirect: 'follow' as RequestRedirect
         };
-        const res = await fetch(`${apiBase}/recipes/${id}`, requestOptions);
+        const res = await fetch(`${apiBase}/leads/${id}`, requestOptions);
         const result = await res.text();
         const data = JSON.parse(result);
-        dispatch(updateRecipeSuccess(data));
+        dispatch(updateLeadSuccess(data));
     } catch(err) {
         console.error(err);
     }
 }
 
-export const createRecipe = (recipe) => async dispatch => {
+export const createLead = (lead: Lead) => async (dispatch: any) => {
     try {
         let myHeaders = api.getHeaders();
         let requestOptions = {
             method: 'POST',
-            body: JSON.stringify(recipe),
+            body: JSON.stringify(lead),
             headers: myHeaders,
-            redirect: 'follow'
+            redirect: 'follow' as RequestRedirect
         };
-        const res = await fetch(`${apiBase}/recipes`, requestOptions);
+        const res = await fetch(`${apiBase}/leads`, requestOptions);
         const result = await res.text();
         const data = JSON.parse(result);
-        dispatch(updateRecipeSuccess(data));
+        dispatch(updateLeadSuccess(data));
     } catch(err) {
         console.error(err);
     }
 }
 
-export const deleteRecipe = (id) => async dispatch => {
+export const deleteLead = (id: string | undefined) => async (dispatch: any) => {
     try {
         let myHeaders = api.getHeaders();
         let requestOptions = {
             method: 'DELETE',
             headers: myHeaders,
-            redirect: 'follow'
+            redirect: 'follow' as RequestRedirect
         };
-        const res = await fetch(`${apiBase}/recipes/${id}`, requestOptions);
+        const res = await fetch(`${apiBase}/leads/${id}`, requestOptions);
         const result = await res.text();
+        console.log(result)
         const data = JSON.parse(result);
         console.log(data);
     } catch(err) {

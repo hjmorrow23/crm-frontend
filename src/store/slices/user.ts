@@ -9,6 +9,7 @@ export const slice = createSlice({
     initialState,
     reducers: {
         loginSuccess: (state, action) => {
+            console.log(action);
             state.user = action.payload;
         },
         logoutSuccess: (state, action) => {
